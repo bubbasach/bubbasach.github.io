@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Photo Gallery</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 10px;
+            padding: 10px;
+        }
+        .gallery img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+        .enlarged {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        .enlarged img {
+            max-width: 90%;
+            max-height: 90%;
+            border-radius: 8px;
+        }
+        .enlarged .close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 2em;
+            color: white;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Our Photo Gallery</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="message.html">A Special Message</a></li>
+                <li><a href="us.html">A Summary of Us</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section class="gallery">
+            <img src="gallery/122-IMG_0239.jpg" alt="Photo 1">
+            <img src="gallery/75497551711__0ADCF42C-B208-4104-961D-5DEBCF8F8096.jpeg" alt="Photo 2">
+            <img src="gallery/77BCE96D-35CC-4205-9175-4F5A8B137D3E.jpg" alt="Photo 3">
+            <img src="gallery/BBAC0E14-3F4A-430C-80A0-415257852500.jpg" alt="Photo 4">
+            <img src="gallery/D76D8093-40C3-4AAC-A04E-E4B058B6BB01.jpg" alt="Photo 5">
+            <img src="gallery/Diwali2024-209.jpeg" alt="Photo 6">
+            <img src="gallery/FullSizeRender.jpeg" alt="Photo 7">
+            <img src="gallery/IMG_0544.jpeg" alt="Photo 8">
+            <img src="gallery/IMG_0547.jpeg" alt="Photo 9">
+            <img src="gallery/IMG_0721.jpeg" alt="Photo 10">
+            <img src="gallery/IMG_3087.JPG" alt="Photo 11">
+            <img src="gallery/IMG_5212.jpeg" alt="Photo 12">
+            <img src="gallery/IMG_8815.JPG" alt="Photo 13">
+            <img src="gallery/IMG_8873.JPG" alt="Photo 14">
+            <img src="gallery/IMG_8936.JPG" alt="Photo 15">
+            <img src="gallery/IMG_9055.JPG" alt="Photo 16">
+            <img src="gallery/IMG_9220.JPG" alt="Photo 17">
+            <img src="gallery/IMG_9221.JPG" alt="Photo 18">
+            <img src="gallery/IMG_9222.JPG" alt="Photo 19">
+            <img src="gallery/IMG_9226.JPG" alt="Photo 20">
+            <img src="gallery/IMG_9229.JPG" alt="Photo 21">
+            <img src="gallery/IMG_9310.JPG" alt="Photo 22">
+            <img src="gallery/IMG_9349.JPG" alt="Photo 23">
+            <img src="gallery/IMG_9366.JPG" alt="Photo 24">
+            <img src="gallery/IMG_9368.JPG" alt="Photo 25">
+            <img src="gallery/IMG_9584.JPG" alt="Photo 26">
+            <img src="gallery/IMG_9757.JPG" alt="Photo 27">
+            <img src="gallery/IMG_9770.JPG" alt="Photo 28">
+            <img src="gallery/IMG_9927.JPG" alt="Photo 29">
+            <img src="gallery/IMG_9950.JPG" alt="Photo 30">
+            <img src="gallery/IMG_9951.JPG" alt="Photo 31">
+            <img src="gallery/IMG_9952.JPG" alt="Photo 32">
+            <img src="gallery/IMG_9953.JPG" alt="Photo 33">
+            <img src="gallery/IMG_9954.JPG" alt="Photo 34">
+            <img src="gallery/IMG_9955.JPG" alt="Photo 35">
+            <img src="gallery/Image-1.jpeg" alt="Photo 36">
+        </section>
+    </main>
+    <footer>
+        <p>Made with ❤️ by Bubba</p>
+    </footer>
+    <script>
+        document.querySelectorAll('.gallery img').forEach(img => {
+            img.addEventListener('click', () => {
+                const enlargedDiv = document.createElement('div');
+                enlargedDiv.classList.add('enlarged');
+                enlargedDiv.innerHTML = `
+                    <span class="close">&times;</span>
+                    <img src="${img.src}" alt="${img.alt}">
+                `;
+                document.body.appendChild(enlargedDiv);
+
+                const closeEnlarged = () => {
+                    document.body.removeChild(enlargedDiv);
+                    document.removeEventListener('keydown', handleEscape);
+                };
+
+                const handleEscape = (event) => {
+                    if (event.key === 'Escape') {
+                        closeEnlarged();
+                    }
+                };
+
+                enlargedDiv.querySelector('.close').addEventListener('click', closeEnlarged);
+                document.addEventListener('keydown', handleEscape);
+            });
+        });
+    </script>
+</body>
+</html>

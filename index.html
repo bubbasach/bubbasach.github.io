@@ -1,1 +1,64 @@
-Hello World
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Anniversary</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="overlay"></div>
+    <header>
+        <h1>Happy 3 Months My Love</h1>
+        <h2>You make every moment magical. Here's something special for you.</p>
+       
+        <nav>
+            <ul>
+                <li><a href="gallery.html">Photo Gallery</a></li>
+                <li><a href="message.html">A Special Message</a></li>
+                <li><a href="us.html">A Summary of Us</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        
+        <section class="countdown">
+            <h2>Countdown to Cuddles!!!</h2>
+            <div id="timer">0 days, 0 hours, 0 minutes, and 0 seconds remaining</div>
+            <script>
+                // Countdown to 4 PM on January 12th
+                let timerInterval; // Declare the variable before usage
+
+                const countdown = () => {
+                    const eventDate = new Date('January 12, 2025 16:00:00').getTime();
+                    const now = new Date().getTime();
+                    const timeLeft = eventDate - now;
+
+                    if (timeLeft >= 0) {
+                        const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+                        const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                        const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+                        const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+
+                        document.getElementById('timer').innerHTML = 
+                            `${days} days, ${hours} hours, ${minutes} minutes, and ${seconds} seconds remaining`;
+                    } else {
+                        clearInterval(timerInterval);
+                        document.getElementById('timer').innerHTML = "The moment is here!";
+                    }
+                };
+
+                timerInterval = setInterval(countdown, 1000); // Assign interval to the declared variable
+                countdown(); // Initial call to display the timer immediately
+            </script>
+        </section>
+
+        <section class="photo">
+            <img src="photos/IMG_8993.JPG" alt="A special moment together">
+        </section>
+    </main>
+    <footer>
+        <p>Made with ❤️ by Bubba</p>
+    </footer>
+</body>
+</html>
