@@ -1,4 +1,4 @@
 {
-    "myButton": "unclicked",
-    "friendButton": "unclicked"
+  "myButton": "clicked",
+  "friendButton": "unclicked"
 }
