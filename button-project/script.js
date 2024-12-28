@@ -1,17 +1,13 @@
 const myButton = document.getElementById('myButton');
 const friendButton = document.getElementById('friendButton');
 
-const GITHUB_TOKEN = '';
-const REPO_OWNER = 'bubbasach';
-const REPO_NAME = 'bubbasach.github.io';
-const WORKFLOW_FILE = 'update-state.yml';
+// Backend API URL
+const BACKEND_URL = 'http://localhost:3000'; // Replace with your deployed backend URL
 
-
-// Load state from JSON file
+// Load state from the backend
 async function loadState() {
-    const url = `https://raw.githubusercontent.com/bubbasach/bubbasach.github.io/data-branch/button-project/state.json`;
     try {
-        const response = await fetch(url);
+        const response = await fetch(`${BACKEND_URL}/state`);
         if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
         }
@@ -23,33 +19,24 @@ async function loadState() {
     }
 }
 
-// Save state by triggering the GitHub Actions workflow
+// Save state by sending a POST request to the backend
 async function saveState(state) {
-    const url = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/actions/workflows/${WORKFLOW_FILE}/dispatches`;
-
     try {
-        const response = await fetch(url, {
+        const response = await fetch(`${BACKEND_URL}/state`, {
             method: 'POST',
             headers: {
-                Authorization: `Bearer ${GITHUB_TOKEN}`,
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({
-                ref: 'main',
-                inputs: {
-                    myButtonState: state.myButton,
-                    friendButtonState: state.friendButton,
-                },
-            }),
+            body: JSON.stringify(state),
         });
 
         if (!response.ok) {
-            throw new Error(`Failed to trigger workflow: ${response.statusText}`);
+            throw new Error(`Failed to save state: ${response.statusText}`);
         }
 
-        console.log('Workflow triggered successfully!');
+        console.log('State saved successfully!');
     } catch (error) {
-        console.error('Error triggering workflow:', error);
+        console.error('Error saving state:', error);
     }
 }
 
@@ -64,7 +51,7 @@ function updateButtonText(button, state, clickedText) {
     }
 }
 
-
+// Disable buttons temporarily
 function disableButtons(clickedButton) {
     myButton.disabled = true;
     friendButton.disabled = true;
@@ -72,7 +59,7 @@ function disableButtons(clickedButton) {
     const originalText = clickedButton.textContent;
     clickedButton.textContent = "Processing...";
 
-    // Re-enable buttons after 5 seconds
+    // Re-enable buttons after 15 seconds
     setTimeout(() => {
         myButton.disabled = false;
         friendButton.disabled = false;
@@ -83,7 +70,7 @@ function disableButtons(clickedButton) {
 // Event listeners for buttons
 myButton.addEventListener('click', () => {
     const newState = { myButton: 'clicked', friendButton: 'unclicked' };
-    disableButtons(myButton);
+    // disableButtons(myButton);
     saveState(newState);
     updateButtonText(myButton, newState.myButton, "Cheer Bear's turn");
     updateButtonText(friendButton, newState.friendButton, "Grumpy Bear's turn");
@@ -91,7 +78,7 @@ myButton.addEventListener('click', () => {
 
 friendButton.addEventListener('click', () => {
     const newState = { myButton: 'unclicked', friendButton: 'clicked' };
-    disableButtons(friendButton);
+    // disableButtons(friendButton);
     saveState(newState);
     updateButtonText(myButton, newState.myButton, "Cheer Bear's turn");
     updateButtonText(friendButton, newState.friendButton, "Grumpy Bear's turn");
