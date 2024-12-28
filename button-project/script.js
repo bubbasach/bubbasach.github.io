@@ -9,14 +9,13 @@ const WORKFLOW_FILE = 'update-state.yml';
 
 // Load state from JSON file
 async function loadState() {
+    const url = `https://raw.githubusercontent.com/bubbasach/bubbasach.github.io/data-branch/button-project/state.json`;
     try {
-        const response = await fetch('./state.json');
+        const response = await fetch(url);
         if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
         }
         const state = await response.json();
-
-        // Update button states and text
         updateButtonText(myButton, state.myButton, "Cheer Bear's turn");
         updateButtonText(friendButton, state.friendButton, "Grumpy Bear's turn");
     } catch (error) {
