@@ -1,4 +1,1 @@
-{
-  "myButton": "clicked",
-  "friendButton": "unclicked"
-}
+{"myButton": "unclicked", "friendButton": "unclicked"}
