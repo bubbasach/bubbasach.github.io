@@ -2,7 +2,7 @@ const myButton = document.getElementById('myButton');
 const friendButton = document.getElementById('friendButton');
 
 // Backend API URL
-const BACKEND_URL = 'http://localhost:3000'; // Replace with your deployed backend URL
+const BACKEND_URL = 'https://bubba-button.onrender.com'; // Replace with your deployed backend URL
 
 // Load state from the backend
 async function loadState() {
