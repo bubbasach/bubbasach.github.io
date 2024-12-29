@@ -86,3 +86,8 @@ friendButton.addEventListener('click', () => {
 
 // Initialize
 loadState();
+
+setInterval(() => {
+    loadState();
+    console.log('State auto-refreshed!');
+}, 2000); // Refresh every 5 seconds
